@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Manejo_Ingreso_Gasto.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Lista de categorias</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear nueva categoria</a>
+</p>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCategoria)
+            </td>
+            <td>
+                @if (item.Tipo == "IN")
+                {
+                    <p class="badge badge-primary">Ingreso</p>
+
+                }
+                else
+                {
+                    <p class="badge badge-warning">Gasto</p>
+                }
+            </td>
+            <td>
+                @if(item.Estado == true)
+                {
+                    <p class="badge badge-success">Activo</p>
+                }
+                else
+                {
+                    <p class="badge badge-secondary">Inactivo</p>
+                }
+            </td>
+            <td>
+                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
